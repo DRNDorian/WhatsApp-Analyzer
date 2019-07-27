@@ -1,0 +1,48 @@
+<?
+//((?<=^\d{1,2}\/\d{1,2}\/\d{1,2})\,)(\d{2}\:\d{2})?
+ class Message {
+	 var $date;
+	 var $user;
+	 var $message;
+	 var $time;
+	 var $n_array;
+	 var $num_line;
+	 
+	 public function Message (){
+		 $message=file("user_file.txt");
+			$num_line = 3;
+			// $n_array=count($message);
+			// for ($i=0; $i<=N; $i++)
+			// {
+				
+			// }
+
+			$re = '/^\d{1,2}\/\d{1,2}\/\d{1,2}\,\ \d{2}\:\d{2}/';
+				$current_message;
+				
+				for ($i=0; $i<10000; $i++)
+				{
+					if (preg_match($re, $message[$i]))
+						{ 
+							$text[0] = explode(", ", $message[$i],2); //Дата
+							$text[1] = explode (" - ", $text[0][1],2); //Время
+							$text[2] = explode (": ", $text[1][1],2); //Имя и текст
+							$current_message=$text[2][1];
+							do
+								if (!preg_match($re, $message[$i+1]))
+								{
+										$current_message=$current_message." ".$message[$i+1];
+										$i++;
+								}
+							while (!preg_match($re, $message[$i+1]));
+						}
+					
+					
+					echo "</br>".$text[2][0]."   ".$current_message;
+				}
+
+	 }
+ }
+ $test = new Message();
+ 
+?>
